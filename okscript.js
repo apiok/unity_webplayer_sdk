@@ -19,6 +19,11 @@ OKAPIWrapper = {
         FAPI.Client.call(JSON.parse(parameters), OKAPIWrapper.unity_api_callback);
     },
     unity_api_callback: function(method,result,data){
-        OKAPIWrapper.unityObject.getUnity().SendMessage("OKAPI", "webPlayerCallback", JSON.stringify(result));
+        OKAPIWrapper.unityObject.getUnity().SendMessage("OKAPI", "APIMethodCallback", JSON.stringify(result));
     }
+}
+
+function API_callback(method, result, data) {
+    var rez = {"method":method, "result":result, "data":data};
+    OKAPIWrapper.unityObject.getUnity().SendMessage("OKAPI", "JSMethodCallback", JSON.stringify(rez));
 }
