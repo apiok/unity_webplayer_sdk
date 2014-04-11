@@ -27,34 +27,10 @@ public class OdnoklassnikiWebplayerAPI : MonoBehaviour {
 	}
 
 	protected void JSshowInvite(string text,string parameters, string selected_uids){
-		if (text == null && parameters == null && selected_uids == null) {
-			Application.ExternalCall("FAPI.UI.showInvite");
-			return;
-		}
-		if (text != null && parameters == null && selected_uids == null) {
-			Application.ExternalCall("FAPI.UI.showInvite" , text);
-			return;
-		}
-		if (text != null && parameters != null && selected_uids == null) {
-			Application.ExternalCall("FAPI.UI.showInvite" , text, parameters);
-			return;
-		}
 		Application.ExternalCall ("FAPI.UI.showInvite", text, parameters, selected_uids);
 	}
 
 	protected void JSshowNotification(string text,string parameters, string selected_uids){
-		if (text == null && parameters == null && selected_uids == null) {
-			Application.ExternalCall("FAPI.UI.showNotification");
-			return;
-		}
-		if (text != null && parameters == null && selected_uids == null) {
-			Application.ExternalCall("FAPI.UI.showNotification" , text);
-			return;
-		}
-		if (text != null && parameters != null && selected_uids == null) {
-			Application.ExternalCall("FAPI.UI.showNotification" , text, parameters);
-			return;
-		}
 		Application.ExternalCall ("FAPI.UI.showNotification", text, parameters, selected_uids);
 	}
 
