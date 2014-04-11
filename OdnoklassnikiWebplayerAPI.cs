@@ -52,6 +52,14 @@ public class OdnoklassnikiWebplayerAPI : MonoBehaviour {
 	protected virtual void JSMethodCallback(string param){
 		this.LogToConsole ("JS METHOD CALLBACK FROM UNITY: " + param);	
 	}
+
+	protected void GetUrlVars(){
+		Application.ExternalCall ("getUrlVars");
+	}
+
+	protected virtual void GetUrlVarsCallback(string param){
+		this.LogToConsole ("GETVARS CALLBACK FROM UNITY: " + param);	
+	}
 	
 	protected void LogToConsole(string param){
 		Application.ExternalCall("console.log", param);

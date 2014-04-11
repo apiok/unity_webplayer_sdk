@@ -27,3 +27,15 @@ function API_callback(method, result, data) {
     var rez = {"method":method, "result":result, "data":data};
     OKAPIWrapper.unityObject.getUnity().SendMessage("OKAPI", "JSMethodCallback", JSON.stringify(rez));
 }
+
+function getUrlVars()
+{
+    var vars = new Object(), hash;
+    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+    for(var i = 0; i < hashes.length; i++)
+    {
+        hash = hashes[i].split('=');
+        vars[hash[0]] = hash[1];
+    }
+    OKAPIWrapper.unityObject.getUnity().SendMessage("OKAPI", "GetUrlVarsCallback", JSON.stringify(vars));
+}
