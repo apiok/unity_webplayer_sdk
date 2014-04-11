@@ -23,7 +23,21 @@ OKAPIWrapper = {
     }
 }
 
+var feedPostingObject;
+
 function API_callback(method, result, data) {
+    if (method == "showConfirmation" && result == "ok") {
+        FAPI.Client.call(feedPostingObject, function(status, data, error) {
+            var rez = {"status":status, "data":data, "error":error};
+            OKAPIWrapper.unityObject.getUnity().SendMessage("OKAPI", "PublishCallback", JSON.stringify(rez));
+        }, data);
+        return;
+    }
+    if (method == "showConfirmation" && result != "ok") {
+        var rez = {"status":status, "data":data, "error":error};
+        OKAPIWrapper.unityObject.getUnity().SendMessage("OKAPI", "PublishCallback", JSON.stringify(rez));
+        return;
+    }
     var rez = {"method":method, "result":result, "data":data};
     OKAPIWrapper.unityObject.getUnity().SendMessage("OKAPI", "JSMethodCallback", JSON.stringify(rez));
 }
@@ -38,4 +52,14 @@ function getUrlVars()
         vars[hash[0]] = hash[1];
     }
     OKAPIWrapper.unityObject.getUnity().SendMessage("OKAPI", "GetUrlVarsCallback", JSON.stringify(vars));
+}
+
+function publish(description, streamMessage, JSONAttachments, JSONActionLinks){
+    feedPostingObject = { method: 'stream.publish',
+                         message: streamMessage,
+                      attachment: JSONAttachments,
+                    action_links: JSONActionLinks
+                        };
+    sig = FAPI.Client.calcSignature(feedPostingObject);
+    FAPI.UI.showConfirmation('stream.publish', description, sig);    
 }
